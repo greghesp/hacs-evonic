@@ -74,7 +74,10 @@ class Info:
         self.last_ping = data.get('time', self.last_ping)
         self.modules = data.get('module', self.modules)
         self.email = data.get('mail', self.email)
-        self.cost = float(data.get('cost', self.cost))
+        if isinstance(data.get('cost'), str):
+            self.cost = float(0);
+        else: 
+            self.cost = float(data.get('cost', self.cost));
         self.heater_power = to_int(data.get('powerHeater', self.heater_power))
         self.led_power = to_int(data.get('powerLed', self.led_power))
         self.flashChip = data.get('flashChip', self.flashChip)
