@@ -1,5 +1,9 @@
 ### Release Notes
 
+Changes in 0.3.5:
+
+- Fix unit enumerators
+
 Changes in 0.3.1:
 
 - Fix state issue when toggling entities

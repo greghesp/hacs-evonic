@@ -16,7 +16,7 @@ from .const import DOMAIN, LOGGER
 from .models import EvonicEntity
 from .pyevonic import Device as EvonicDevice
 from homeassistant.const import (
-    POWER_WATT,
+    UnitOfPower,
     SIGNAL_STRENGTH_DECIBELS_MILLIWATT)
 
 from homeassistant.components.sensor import (
@@ -57,7 +57,7 @@ SENSORS: tuple[EvonicSensorEntityDescription, ...] = (
     EvonicSensorEntityDescription(
         key="current_heater_usage",
         name="Heater Usage",
-        native_unit_of_measurement=POWER_WATT,
+        native_unit_of_measurement=UnitOfPower.WATT,
         entity_category=EntityCategory.DIAGNOSTIC,
         device_class=SensorDeviceClass.POWER,
         state_class=SensorStateClass.MEASUREMENT,
@@ -66,7 +66,7 @@ SENSORS: tuple[EvonicSensorEntityDescription, ...] = (
     EvonicSensorEntityDescription(
         key="current_led_usage",
         name="LED Usage",
-        native_unit_of_measurement=POWER_WATT,
+        native_unit_of_measurement=UnitOfPower.WATT,
         entity_category=EntityCategory.DIAGNOSTIC,
         device_class=SensorDeviceClass.POWER,
         state_class=SensorStateClass.MEASUREMENT,
@@ -75,7 +75,7 @@ SENSORS: tuple[EvonicSensorEntityDescription, ...] = (
     EvonicSensorEntityDescription(
         key="current_total_usage",
         name="Total Usage",
-        native_unit_of_measurement=POWER_WATT,
+        native_unit_of_measurement=UnitOfPower.WATT,
         entity_category=EntityCategory.DIAGNOSTIC,
         device_class=SensorDeviceClass.POWER,
         state_class=SensorStateClass.MEASUREMENT,

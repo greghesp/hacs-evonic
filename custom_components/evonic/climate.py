@@ -6,7 +6,7 @@ from homeassistant.core import HomeAssistant, callback
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.const import ATTR_TEMPERATURE, TEMP_CELSIUS, TEMP_FAHRENHEIT
+from homeassistant.const import (UnitOfTemperature)
 from .coordinator import EvonicCoordinator
 from .const import DOMAIN, LOGGER
 from .models import EvonicEntity
@@ -42,9 +42,9 @@ class EvonicHeater(EvonicEntity, ClimateEntity):
         self._attr_unique_id = f"{coordinator.data.info.ssdp}_heater"
         self._attr_supported_features = ClimateEntityFeature.TARGET_TEMPERATURE
         if self.coordinator.data.climate.fahrenheit:
-            self._attr_temperature_unit = TEMP_FAHRENHEIT
+            self._attr_temperature_unit = UnitOfTemperature.FAHRENHEIT
         else:
-            self._attr_temperature_unit = TEMP_CELSIUS
+            self._attr_temperature_unit = UnitOfTemperature.CELSIUS
         self._attr_hvac_modes = [
             HVACMode.HEAT,
             HVACMode.OFF
@@ -88,10 +88,10 @@ class EvonicHeater(EvonicEntity, ClimateEntity):
 
     async def async_set_temperature(self, **kwargs) -> None:
         """ Set new target temperature"""
-        if ATTR_TEMPERATURE not in kwargs:
-            raise ValueError(f"Expected attribute {ATTR_TEMPERATURE}")
+        if "temperature" not in kwargs:
+            raise ValueError(f"Expected attribute 'temperature'")
 
-        await self.coordinator.evonic.set_temperature(round(kwargs[ATTR_TEMPERATURE]))
+        await self.coordinator.evonic.set_temperature(round(kwargs["temperature"]))
         await self.coordinator.async_request_refresh()
 
 @callback
